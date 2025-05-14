@@ -77,8 +77,11 @@
 	},
 	"css": {
 		"formatter": {
+			"enabled": true,
 			"indentStyle": "space",
-			"indentWidth": 2
+			"indentWidth": 2,
+			"quoteStyle": "single",
+			"lineWidth": 80
 		},
 		"linter": {
 			"enabled": true
