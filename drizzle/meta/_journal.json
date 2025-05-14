@@ -1,41 +1,41 @@
 {
-  "version": "7",
-  "dialect": "postgresql",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "7",
-      "when": 1745422295924,
-      "tag": "0000_add_users",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1745422951369,
-      "tag": "0001_add_quizzes_and_questions",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1745505925950,
-      "tag": "0002_add_clerk_user_id_to_users",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1747036992937,
-      "tag": "0003_add_username_to_users",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1747037247027,
-      "tag": "0004_username_unique_on_users",
-      "breakpoints": true
-    }
-  ]
+	"version": "7",
+	"dialect": "postgresql",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "7",
+			"when": 1745422295924,
+			"tag": "0000_add_users",
+			"breakpoints": true
+		},
+		{
+			"idx": 1,
+			"version": "7",
+			"when": 1745422951369,
+			"tag": "0001_add_quizzes_and_questions",
+			"breakpoints": true
+		},
+		{
+			"idx": 2,
+			"version": "7",
+			"when": 1745505925950,
+			"tag": "0002_add_clerk_user_id_to_users",
+			"breakpoints": true
+		},
+		{
+			"idx": 3,
+			"version": "7",
+			"when": 1747036992937,
+			"tag": "0003_add_username_to_users",
+			"breakpoints": true
+		},
+		{
+			"idx": 4,
+			"version": "7",
+			"when": 1747037247027,
+			"tag": "0004_username_unique_on_users",
+			"breakpoints": true
+		}
+	]
 }
