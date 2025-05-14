@@ -75,6 +75,15 @@
 		"jsxRuntime": "reactClassic",
 		"globals": ["React"]
 	},
+	"css": {
+		"formatter": {
+			"indentStyle": "space",
+			"indentWidth": 2
+		},
+		"linter": {
+			"enabled": true
+		}
+	},
 	"overrides": [
 		{ "include": ["**/*.{js,jsx,ts,tsx}"] },
 		{ "include": ["**/*.{ts,tsx}"] },
