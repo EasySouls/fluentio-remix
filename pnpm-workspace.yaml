@@ -1,5 +1,6 @@
 onlyBuiltDependencies:
   - '@biomejs/biome'
+  - '@sentry/cli'
   - '@tailwindcss/oxide'
   - esbuild
   - unrs-resolver

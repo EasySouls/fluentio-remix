@@ -9,20 +9,29 @@ import { PassThrough } from 'node:stream';
 import { createReadableStreamFromReadable } from '@react-router/node';
 import { isbot } from 'isbot';
 import { renderToPipeableStream } from 'react-dom/server';
-import type { AppLoadContext, EntryContext } from 'react-router';
+import type {
+	AppLoadContext,
+	EntryContext,
+	HandleErrorFunction,
+} from 'react-router';
 import { ServerRouter } from 'react-router';
+
+import * as Sentry from '@sentry/react-router';
+import {
+	getMetaTagTransformer,
+	wrapSentryHandleRequest,
+} from '@sentry/react-router';
 
 const ABORT_DELAY = 5_000;
 
-export default function handleRequest(
+const handleRequest = function handleRequest(
 	request: Request,
 	responseStatusCode: number,
 	responseHeaders: Headers,
 	reactRouterContext: EntryContext,
 	// This is ignored so we can keep it in the template for visibility.  Feel
 	// free to delete this parameter in your app if you're not using it!
-	// biome-ignore lint/correctness/noUnusedVariables:
-	loadContext: AppLoadContext,
+	_loadContext: AppLoadContext,
 ) {
 	return isbot(request.headers.get('user-agent') || '')
 		? handleBotRequest(
@@ -37,7 +46,16 @@ export default function handleRequest(
 				responseHeaders,
 				reactRouterContext,
 			);
-}
+};
+
+export const handleError: HandleErrorFunction = (error, { request }) => {
+	// React Router may abort some interrupted requests, don't log those
+	if (!request.signal.aborted) {
+		Sentry.captureException(error);
+		// optionally log the error so you can see it
+		console.error(error);
+	}
+};
 
 function handleBotRequest(
 	request: Request,
@@ -64,7 +82,8 @@ function handleBotRequest(
 						}),
 					);
 
-					pipe(body);
+					// this enables distributed tracing between client and server
+					pipe(getMetaTagTransformer(body));
 				},
 				onShellError(error: unknown) {
 					reject(error);
@@ -110,7 +129,8 @@ function handleBrowserRequest(
 						}),
 					);
 
-					pipe(body);
+					// this enables distributed tracing between client and server
+					pipe(getMetaTagTransformer(body));
 				},
 				onShellError(error: unknown) {
 					reject(error);
@@ -130,3 +150,5 @@ function handleBrowserRequest(
 		setTimeout(abort, ABORT_DELAY);
 	});
 }
+
+export default wrapSentryHandleRequest(handleRequest);
